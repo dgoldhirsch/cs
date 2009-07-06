@@ -3,7 +3,7 @@ require 'rubygems'
 # Title:: Computer Science Library for Ruby
 # Author:: David C. Goldhirsch
 # Copyright (c) 2009, David C. Goldhirsch
-class CS
+module CS
   # Fibonacci number generator.
   # Return integer value of F(n) for any integer n >= 1,
   # where F(n) is defined as F(n - 1) + F(n - 2) for n > 2, F(2) = 1
@@ -15,14 +15,6 @@ class CS
   def self.fibonacci n
     return 0 if n <= 1
     return (FibonacciSecondOrHigher.advanced_by n - 2).result
-  end
-
-  private
-
-  # The class 'new' method is privatized, because users should not be
-  # instantiating this class.
-  def self.new
-    super.new
   end
 end
 
