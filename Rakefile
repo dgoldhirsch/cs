@@ -6,7 +6,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "cs"
     gem.files = FileList['lib/**/*.rb']
-    gem.summary = %Q{TODO}
+    gem.summary = %Q{Computer Science Library for Ruby}
     gem.email = "dgoldhirsch@yahoo.com"
     gem.homepage = "http://github.com/dgoldhirsch/cs"
     gem.authors = ["dgoldhirsch"]
