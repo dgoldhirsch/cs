@@ -1,0 +1,7 @@
+= cs
+
+Description goes here.
+
+== Copyright
+
+Copyright (c) 2009 dgoldhirsch. See LICENSE for details.
