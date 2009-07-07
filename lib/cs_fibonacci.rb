@@ -6,7 +6,7 @@ require 'cs.rb'
 #
 # <code>
 # require 'cs' # get the gem
-# require 'fibonacci.rb' # get the Integer mixin
+# require 'cs_fibonacci.rb' # get the Integer mixin
 # </code>
 #
 # And now you can do this:

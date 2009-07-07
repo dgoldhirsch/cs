@@ -1,11 +1,11 @@
 require "test_helper"
+require "matrix"
 require "timeout"
 
-class CsMixinTest  < Test::Unit::TestCase
+class CsFibonacciTest  < Test::Unit::TestCase
 
-  # Basic test of CS::fibonacci.  Verify correctness of F(1, ...)
-  # as (0, 1, 1, 2, 3, 5, 8...).
-  def test_basic
+  # Test O(n) algorithm
+  def test_linear
     assert_equal 0, CS::fibonacci(0)
     assert_equal 1, CS::fibonacci(1)
     assert_equal 1, CS::fibonacci(2)
@@ -15,6 +15,17 @@ class CsMixinTest  < Test::Unit::TestCase
     assert_equal 8, CS::fibonacci(6)
   end
 
+  # Test O(log n), high falutin' algorithm
+  def test_matrix  
+    assert_equal 0, CS::matrix_fibonacci(0)
+    assert_equal 1, CS::matrix_fibonacci(1)
+    assert_equal 1, CS::matrix_fibonacci(2)
+    assert_equal 2, CS::matrix_fibonacci(3)
+    assert_equal 3, CS::matrix_fibonacci(4)
+    assert_equal 5, CS::matrix_fibonacci(5)
+    assert_equal 8, CS::matrix_fibonacci(6)
+  end
+  
   # Test for gross performance problems, using a time-out thread.
   # It's probably possible--at least theoretically--for this test
   # to fail because of system issues rather than the fibonacci
@@ -25,6 +36,54 @@ class CsMixinTest  < Test::Unit::TestCase
       # 20 seconds would seem to be far more than is necessary for this...
       Timeout::timeout(20) {CS::fibonacci(10000)}
     end
+  end
+
+  # Test our understanding of the Ruby matrix module
+  def test_matrix
+    m = Matrix[[0, 1],[1, 1]]
+    m2 = m*m
+    m3 = m2*m
+    m4 = m3*m
+    m2squared = m2**2
+    assert_equal 1, CS::lower_right(m)
+    assert_equal 2, CS::lower_right(m2)
+    assert_equal 3, CS::lower_right(m3)
+    assert_equal 5, CS::lower_right(m4)
+    assert_equal m4, m2squared
+    e = Matrix[]
+    assert_nil CS::lower_right(e)
+  end
+
+  def test_power_of_two
+    p = PowerOfTwo.new(1)
+    assert_equal 0, p.power
+    assert_equal 1, p.value
+    assert_equal 0, p.remaining
+
+    p = PowerOfTwo.new(2)
+    assert_equal 1, p.power
+    assert_equal 2, p.value
+    assert_equal 0, p.remaining
+
+    p = PowerOfTwo.new(3)
+    assert_equal 1, p.power
+    assert_equal 2, p.value
+    assert_equal 1, p.remaining
+
+    p = PowerOfTwo.new(4)
+    assert_equal 2, p.power
+    assert_equal 4, p.value
+    assert_equal 0, p.remaining
+
+    p = PowerOfTwo.new(5)
+    assert_equal 2, p.power
+    assert_equal 4, p.value
+    assert_equal 1, p.remaining
+
+    p = PowerOfTwo.new(6)
+    assert_equal 2, p.power
+    assert_equal 4, p.value
+    assert_equal 2, p.remaining
   end
 
   #The following function will take a massive amount of CPU time and an impossible amount of memory,

@@ -1,5 +1,6 @@
 require "test_helper"
-require "../lib/fibonacci.rb"
+require "../lib/cs_fibonacci.rb"
+require "../lib/cs_matrix.rb"
 
 # Test mixin wrappers for the CS library.  This is just
 # for the mixin wrappers--the hard core tests for the
@@ -16,4 +17,7 @@ class CsMixinTest  < Test::Unit::TestCase
     assert y.method(:fibonacci)
   end
 
+  def test_matrix_mixin
+    assert_equal 6, Matrix[[1,2,3], [4,5,6]].lower_right
+  end
 end
