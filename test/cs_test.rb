@@ -6,24 +6,24 @@ class CsFibonacciTest  < Test::Unit::TestCase
 
   # Test O(n) algorithm
   def test_linear
-    assert_equal 0, CS::fibonacci(0)
-    assert_equal 1, CS::fibonacci(1)
-    assert_equal 1, CS::fibonacci(2)
-    assert_equal 2, CS::fibonacci(3)
-    assert_equal 3, CS::fibonacci(4)
-    assert_equal 5, CS::fibonacci(5)
-    assert_equal 8, CS::fibonacci(6)
+    assert_equal 0, CS::linear_addition_fibonacci(0)
+    assert_equal 1, CS::linear_addition_fibonacci(1)
+    assert_equal 1, CS::linear_addition_fibonacci(2)
+    assert_equal 2, CS::linear_addition_fibonacci(3)
+    assert_equal 3, CS::linear_addition_fibonacci(4)
+    assert_equal 5, CS::linear_addition_fibonacci(5)
+    assert_equal 8, CS::linear_addition_fibonacci(6)
   end
 
   # Test O(log n), high falutin' algorithm
   def test_matrix  
-    assert_equal 0, CS::matrix_fibonacci(0)
-    assert_equal 1, CS::matrix_fibonacci(1)
-    assert_equal 1, CS::matrix_fibonacci(2)
-    assert_equal 2, CS::matrix_fibonacci(3)
-    assert_equal 3, CS::matrix_fibonacci(4)
-    assert_equal 5, CS::matrix_fibonacci(5)
-    assert_equal 8, CS::matrix_fibonacci(6)
+    assert_equal 0, CS::hybrid_matrix_fibonacci(0)
+    assert_equal 1, CS::hybrid_matrix_fibonacci(1)
+    assert_equal 1, CS::hybrid_matrix_fibonacci(2)
+    assert_equal 2, CS::hybrid_matrix_fibonacci(3)
+    assert_equal 3, CS::hybrid_matrix_fibonacci(4)
+    assert_equal 5, CS::hybrid_matrix_fibonacci(5)
+    assert_equal 8, CS::hybrid_matrix_fibonacci(6)
   end
   
   # Test for gross performance problems, using a time-out thread.
@@ -34,7 +34,7 @@ class CsFibonacciTest  < Test::Unit::TestCase
   def test_raw_performance
     assert_nothing_raised do
       # 20 seconds would seem to be far more than is necessary for this...
-      Timeout::timeout(20) {CS::fibonacci(10000)}
+      Timeout::timeout(20) {CS::linear_addition_fibonacci(10000)}
     end
   end
 
