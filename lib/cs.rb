@@ -6,18 +6,30 @@ require 'matrix'
 # Copyright (c) 2009, David C. Goldhirsch
 module CS
 
+  ########################################## Fibonacci Algorithms
+
+  FIBONACCI_LINEAR_MATRIX = :linear_matrix
+  FIBONACCI_WHILE_LOOP = :while_loop
+  Fibonacci_algorithms = [FIBONACCI_LINEAR_MATRIX, FIBONACCI_WHILE_LOOP]
+
   # Generalized Fibonacci generator.
   # Return the integer value of F(n) for any integer n, where
   # F(0) = 0
   # F(1) = 1
   # F(k > 1) = F(k - 1) + F(k - 2)
   # Starting with F(0), the first few Fibonacci values are 0, 1, 1, 2, 3, 5, 8, ...
-  # 
-  def self.fibonacci(n)
+  #
+  # Usage:   CS::fibonacci(anInteger, aSymbol = :linear_matrix)
+  # in which anInteger is any integer (but anything less than 0 will be
+  # interpreted as 0), and aSymbol optionally specifies the algorithm to be
+  # used.  See this module's Fibonacc_algorithms constant for the possible
+  # algorithm names.  By default, the fastest known algorithm will be used.
+  def self.fibonacci(n, algorithm = FIBONACCI_LINEAR_MATRIX)
     # The following seems to be the fastest algorithm, perhaps because
     # Ruby's Matrix.** operation is smart enough to use squares of squares
     # to minimize the number of multiplications.
-    return linear_matrix_fibonacci(n)
+    return linear_matrix_fibonacci(n) if algorithm == FIBONACCI_LINEAR_MATRIX
+    return while_loop_fibonacci(n) if algorithm == FIBONACCI_WHILE_LOOP
   end
 
   # Matrix utility to return
@@ -87,5 +99,4 @@ module CS
     end
     return result
   end
-
 end

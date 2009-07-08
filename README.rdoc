@@ -1,6 +1,50 @@
 = cs
 
-Description goes here.
+Computer Science Module for Ruby
+
+This gem provides the module CS which contains useful computer science algorithms.
+Reasonable attempts have been made to ensure that the algorithms perform well.
+
+== Obtaining the gem from github
+
+gem install dgoldhirsch-cs
+
+== Using the CS module in your Ruby  code
+
+require 'rubygems'
+require 'cs'
+
+CS::classmethodwhatever params...
+
+== Available Algorithms
+
+Currently the module is very small, but the intention is to fill it with as many
+algorithms as aren't already available elsewhere on the Web (see http://rosettacode.org/ for
+another place where algorithms are available).
+
+Here's the list of available algorithms, so far:
+
+CS::fibonacci(anInteger)    # return F(n),  the nth Fibonacci number, where F(0) = 0, F(1) = 1,
+                    # and F(n) = F(n - 1) + F(n - 2).  An optimized matrix multiplication
+                    # algorithm is used to provide O(log n) performance (as opposed to
+                    # a simple while loop that is O(n), or an even simpler recursive
+                    # method that is O(2**n)).
+
+CS::lower_right(aMatrix)    # convenience method returning the lower, right-hand
+                    # element of the given Matrix object
+
+== Alternative Implementations of the Algorithms
+
+Although we've tried to offer the best-performing implementation by default, there
+is always the chance that a different implementation may work better for any
+particular environment and data set.  Therefore, we provide alternate implementations
+and a simple, optional parameter that lets you select a specific implementation for each
+method.
+
+== This is Still Half-Baked
+
+Obviously, we're still in the process of creating the first legitimate version of this
+gem.  For now, it should be thought of as an 'alpha' release (at best!)
 
 == Copyright
 

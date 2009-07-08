@@ -12,6 +12,10 @@ class CsFibonacciTest  < Test::Unit::TestCase
     (0..F.size - 1).each { | i | assert_equal F[i], CS::while_loop_fibonacci(i)}
   end
 
+  def test_optional_algorithm
+    assert_nil CS::fibonacci(3, :foobar)
+  end
+  
   # Test for gross performance problems, using a time-out thread.
   # It's possible--at least theoretically--for this test
   # to fail because of system issues rather than the fibonacci
