@@ -16,7 +16,7 @@ module CS
   def self.fibonacci(n)
     # Simply delegate to the fastest of our algorithms, because
     # this one seems to beat the others no matter how small n is.
-    return hybrid_matrix_fibonacci(n)
+    return linear_matrix_fibonacci(n)
   end
 
   # Linear (O(n)) addition algorithm to compute Fibonacci numbers.
@@ -28,6 +28,32 @@ module CS
     return FibonacciOneOrHigher.new.advance_by(n - 1).result
   end
 
+  #
+  def self.simplest_fibonacci(n)
+    return n if n < 2
+    p2 = 0
+    p1 = 1
+    (n-1).times do
+      n = p1 + p2
+      p2 = p1
+      p1 = n
+    end
+    return n
+  end
+  
+  def self.list_fibonacci(n)
+    return n if n < 2
+    a = 0
+    b = 1
+    while n > 0
+      tmp_a = a
+      a = b
+      b += tmp_a
+      n -= 1
+    end
+    a
+  end
+  
   # Linear matrix multiplication algorithm to compute Fibonacci numbers generator.
   # As described in the book, <I>Introduction to Algorithms (Second Edition)</I>, by
   # Cormen, Leiserson, Rivest, Sten (see Problem 31-3 on pages 902, 903), F(n)
@@ -42,39 +68,7 @@ module CS
     return 0 if n <= 0 # F(0)
     return 1 if n == 1 # F(1), equivalent to matrix M(0) = [[0, 1], [1, 1]].
     # We want M(n - 1) = M(0)**(n-1) which is equivalent to F(n).
-    previous = Matrix[[0, 1], [1,1]]**(n - 1)
-    result = CS::lower_right(previous**2) # F(p.power)
-    return result
-  end
-
-  # This algorithm divides the problem into two portions:  first, raise the matrix M to the highest
-  # power of 2 such that the result is less then F(n).  Call the result F(k <= n), and
-  # then use the simple, lineary, addition to advance that to F(n).
-  def self.hybrid_matrix_fibonacci(n)
-    return 0 if n <= 0 # F(0)
-    return 1 if n == 1 # F(1), equivalent to matrix M(0) = [[0, 1], [1, 1]].
-    # We want M(n - 1) = M(0)**(n-1) which is equivalent to F(n).
-    # Let the spiffy Matrix.** algorithm do this.
-    p = PowerOfTwo.new(n - 1);
-    previous = Matrix[[0, 1], [1,1]]**(p.power - 1)
-    result = previous**2 # F(p.power)
-    # Bootstrap F(p.power, p.value), to be advanced linearly to n - 2
-    f = FibonacciOneOrHigher.for_previous_and_result(CS::lower_right(previous), CS::lower_right(result))
-    f.advance_by(p.remaining)
-    return f.result
-  end
-
-  # This algorithm divides the problem into two portions, just like hybrid_matrix_fibonacci.
-  # Instead of using the linear addition to advance from F(k < n) to F(n), it uses one additional
-  # call to Matrix.**.
-  def self.binary_matrix_fibonacci(n)
-    return 0 if n <= 0 # F(0)
-    return 1 if n == 1 # F(1), equivalent to matrix M(0) = [[0, 1], [1, 1]].
-    # We want M(n - 1) = M(0)**(n-1) which is equivalent to F(n).
-    # Let the spiffy Matrix.** algorithm do this.
-    p = PowerOfTwo.new(n - 1);
-    previous = Matrix[[0, 1], [1,1]]**(p.power) # presumed to be specially optimized
-    result = CS::lower_right(previous**p.remaining)
+    return CS::lower_right(M**(n - 1)) # F(p.power)
   end
 
   # Matrix utility to return
@@ -83,42 +77,11 @@ module CS
     return nil if matrix.row_size == 0
     return matrix[matrix.row_size - 1, matrix.column_size - 1]
   end
-
-  def self.squared_by matrix, n
-    result = matrix;
-    n.times {result *= result}
-    return result;
-  end
 end
 
 private
 
-class PowerOfTwo
-  attr_accessor :power
-  attr_accessor :value
-  attr_accessor :n
-  def initialize n
-    self.n = n
-    compute_highest_power_of_two_less_than_input
-  end
-
-  def remaining
-    return self.n - self.value
-  end
-  
-  private
-
-  def compute_highest_power_of_two_less_than_input
-    p = 0
-    v = 1
-    while v * 2 <= n do
-      p += 1
-      v *= 2
-    end
-    self.power = p
-    self.value = v
-  end
-end
+M = Matrix[[0, 1], [1,1]]
 
 # O(n) Fibonacci generating class, each of whose instances represents F(1 + k)
 # for some given k. To obtain the integer value of F(w), use the 'result' method, e.g.:

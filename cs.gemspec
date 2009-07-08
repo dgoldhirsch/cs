@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{Computer Science Library for Ruby}
   s.test_files = [
-    "test/cs_benchmark.rb",
+    "test/cs_benchmark_test.rb",
      "test/cs_mixin_test.rb",
      "test/cs_test.rb",
      "test/test_helper.rb"

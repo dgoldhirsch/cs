@@ -1,6 +1,7 @@
 require "test_helper"
-require "../lib/cs_fibonacci.rb"
-require "../lib/cs_matrix.rb"
+require File.join(File.dirname(__FILE__), '..', 'lib', 'cs_fibonacci.rb')
+require File.join(File.dirname(__FILE__), '..', 'lib', 'cs_matrix.rb')
+
 
 # Test mixin wrappers for the CS library.  This is just
 # for the mixin wrappers--the hard core tests for the

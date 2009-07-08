@@ -4,8 +4,7 @@ require "timeout"
 
 class CsFibonacciTest  < Test::Unit::TestCase
 
-  # Test O(n) algorithm
-  def test_linear
+  def linear_addition_fibonacci
     assert_equal 0, CS::linear_addition_fibonacci(0)
     assert_equal 1, CS::linear_addition_fibonacci(1)
     assert_equal 1, CS::linear_addition_fibonacci(2)
@@ -14,16 +13,35 @@ class CsFibonacciTest  < Test::Unit::TestCase
     assert_equal 5, CS::linear_addition_fibonacci(5)
     assert_equal 8, CS::linear_addition_fibonacci(6)
   end
-
-  # Test O(log n), high falutin' algorithm
-  def test_matrix  
-    assert_equal 0, CS::hybrid_matrix_fibonacci(0)
-    assert_equal 1, CS::hybrid_matrix_fibonacci(1)
-    assert_equal 1, CS::hybrid_matrix_fibonacci(2)
-    assert_equal 2, CS::hybrid_matrix_fibonacci(3)
-    assert_equal 3, CS::hybrid_matrix_fibonacci(4)
-    assert_equal 5, CS::hybrid_matrix_fibonacci(5)
-    assert_equal 8, CS::hybrid_matrix_fibonacci(6)
+  
+  def test_linear_matrix  
+    assert_equal 0, CS::linear_matrix_fibonacci(0)
+    assert_equal 1, CS::linear_matrix_fibonacci(1)
+    assert_equal 1, CS::linear_matrix_fibonacci(2)
+    assert_equal 2, CS::linear_matrix_fibonacci(3)
+    assert_equal 3, CS::linear_matrix_fibonacci(4)
+    assert_equal 5, CS::linear_matrix_fibonacci(5)
+    assert_equal 8, CS::linear_matrix_fibonacci(6)
+  end
+  
+  def test_simplest
+      assert_equal 0, CS::simplest_fibonacci(0)
+      assert_equal 1, CS::simplest_fibonacci(1)
+      assert_equal 1, CS::simplest_fibonacci(2)
+      assert_equal 2, CS::simplest_fibonacci(3)
+      assert_equal 3, CS::simplest_fibonacci(4)
+      assert_equal 5, CS::simplest_fibonacci(5)
+      assert_equal 8, CS::simplest_fibonacci(6)
+  end
+  
+  def test_list
+      assert_equal 0, CS::list_fibonacci(0)
+      assert_equal 1, CS::list_fibonacci(1)
+      assert_equal 1, CS::list_fibonacci(2)
+      assert_equal 2, CS::list_fibonacci(3)
+      assert_equal 3, CS::list_fibonacci(4)
+      assert_equal 5, CS::list_fibonacci(5)
+      assert_equal 8, CS::list_fibonacci(6)
   end
   
   # Test for gross performance problems, using a time-out thread.
@@ -52,38 +70,6 @@ class CsFibonacciTest  < Test::Unit::TestCase
     assert_equal m4, m2squared
     e = Matrix[]
     assert_nil CS::lower_right(e)
-  end
-
-  def test_power_of_two
-    p = PowerOfTwo.new(1)
-    assert_equal 0, p.power
-    assert_equal 1, p.value
-    assert_equal 0, p.remaining
-
-    p = PowerOfTwo.new(2)
-    assert_equal 1, p.power
-    assert_equal 2, p.value
-    assert_equal 0, p.remaining
-
-    p = PowerOfTwo.new(3)
-    assert_equal 1, p.power
-    assert_equal 2, p.value
-    assert_equal 1, p.remaining
-
-    p = PowerOfTwo.new(4)
-    assert_equal 2, p.power
-    assert_equal 4, p.value
-    assert_equal 0, p.remaining
-
-    p = PowerOfTwo.new(5)
-    assert_equal 2, p.power
-    assert_equal 4, p.value
-    assert_equal 1, p.remaining
-
-    p = PowerOfTwo.new(6)
-    assert_equal 2, p.power
-    assert_equal 4, p.value
-    assert_equal 2, p.remaining
   end
 
   #The following function will take a massive amount of CPU time and an impossible amount of memory,
