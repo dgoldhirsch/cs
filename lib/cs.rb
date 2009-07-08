@@ -30,20 +30,62 @@ module CS
   private
 
   # Linear matrix multiplication algorithm to compute Fibonacci numbers generator.
-  # is the lower right element of the matrix M raised to the n - 1'st power, where
-  # M = Matrix[[0, 1], [1, 1]].
+  # Let M be Matrix [[0, 1], [1, 1]].  Then, the lower right element of M**k is
+  # F(k + 1).  In other words, the lower right element of M is F(2) which is 1, and the
+  # lower right element of M**2 is F(3) which is 2, and the lower right element
+  # of M**3 is F(4) which is 3, etc.
   #
-  # The Ruby implementation of Matrix.** seems to be very good, indeed, because
-  # this implementation is VERY much faster than that of linear addition (even
-  # though more arithmetic would seem to be needed for the matrix multiplications).
-  # It would be interesting to know why this is the case.
+  # This is a good way to compute F(n) because the Ruby implementation of Matrix.**
+  # uses an O(log n) optimized algorithm (*).  Computing M**(n-1) is actually
+  # faster (**) than using a simple while/for loop to compute F(0) + F(1) + ... + F(n-1).
+  #
+  # We found the matrix multiplication algorithm in <I>Introduction To Algorithms
+  # (Second Edition)</I>, by Cormen, Leiserson, Rivest, and Stein, MIT Press
+  # (http://mitpress.mit.edu), in exercise 3-31 on pages 902, 903.
+  #
+  # (*) Ruby's Matrix.**(k) works by computing partial = ((m**2)**2)... as far as possible,
+  # and then multiplying partial by M**(the remaining number of times).  E.g., to compute
+  # M**19, compute partial = ((M**2)**2) = M**16, and then compute partial*(M**3) = M**19.
+  # That's only 3 matrix multiplications of M to compute M*19.
+  #
+  # (**) "Faster" means on the workstations we tried, the matrix algorithm takes less total time
+  # (see Ruby's Benchmark::bmbm) than the simple while/for loop.  But the space complexity
+  # may well be larger for the matrix algorithm, which in turn may affect the likelihood
+  # of garbage collection in large cases.  Therefore, as with almost everything else,
+  # a different algorithm may be better suited to any particular environment or situation.
+  # This is why we provide the optional, alternative algorithms.
+  # 
   def self.linear_matrix_fibonacci(n)
     return 0 if n <= 0 # F(0)
-    return 1 if n == 1 # F(1), equivalent to matrix M(0) = [[0, 1], [1, 1]].
-    # We want M(n - 1) = M(0)**(n-1) which is equivalent to F(n).
-    return CS::lower_right(M**(n - 1)) # F(p.power)
+    return 1 if n == 1 # F(1)
+    # To get F(n >= 2), compute M**(n - 1) and extract the lower right element.
+    return CS::lower_right(M**(n - 1))
   end
 
+  # To understand why this matrix is useful for Fibonacci numbers, remember
+  # that the definition of Matrix.** for any Matrix[[a, b], [c, d]] is
+  # is [[a*a + b*c, a*b + b*d], [c*a + d*b, c*b + d*d]].  In other words, the
+  # lower right element is computing F(k - 2) + F(k - 1) every time M is multiplied
+  # by itself (it is perhaps easier to understand this by computing M**2, 3, etc, and
+  # watching the result march up the sequence of Fibonacci numbers).
   M = Matrix[[0, 1], [1,1]]
+
+  # This is a simple while/for loop algorithm to compute F(n) by computing
+  # F(0) + F(1) + ... + F(n-1).  Our spotty benchmark/profiling suggests that
+  # this is always worse in CPU time and general response time than
+  # the linear_matrix_fibonacci algorithm.  (And, surprisingly, this seems to be true even
+  # for very low values of n.)  We provide it for purposes of information, and as
+  # a point of comparison for performance.
+  def self.while_loop_fibonacci(n)
+    return 0 if n <= 0
+    b = 0 # F(0)
+    result = 1 # F(1)
+    (n - 1).times do
+      a = b
+      b = result
+      result += a # i.e., result = a + b
+    end
+    return result
+  end
 
 end

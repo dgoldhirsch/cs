@@ -10,12 +10,13 @@ class CS_benchmark < Test::Unit::TestCase
   # This isn't a test per se, but rather a very simple performance profiler.
   def test_performance
     y = Benchmark.bmbm do |x|
-      x.report("linear matrix") { CS::linear_matrix_fibonacci(N) }
+      x.report("linear_matrix_fibonacci") { CS::linear_matrix_fibonacci(N) }
+      x.report("while_loop_fibonacci") { CS::while_loop_fibonacci(N) }
     end
   end
   
   def test_rubyprof
-    linear_result = RubyProf.profile {CS::linear_matrix_fibonacci(N)}
-    RubyProf::GraphPrinter.new(linear_result).print(STDOUT, 0)
+    RubyProf::GraphPrinter.new(RubyProf.profile {CS::linear_matrix_fibonacci(N)}).print(STDOUT, 0)
+    RubyProf::GraphPrinter.new(RubyProf.profile {CS::while_loop_fibonacci(N)}).print(STDOUT, 0)
   end
 end

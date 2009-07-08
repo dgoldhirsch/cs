@@ -4,18 +4,16 @@ require "timeout"
 
 class CsFibonacciTest  < Test::Unit::TestCase
 
-  def test_linear_matrix  
-    assert_equal 0, CS::linear_matrix_fibonacci(0)
-    assert_equal 1, CS::linear_matrix_fibonacci(1)
-    assert_equal 1, CS::linear_matrix_fibonacci(2)
-    assert_equal 2, CS::linear_matrix_fibonacci(3)
-    assert_equal 3, CS::linear_matrix_fibonacci(4)
-    assert_equal 5, CS::linear_matrix_fibonacci(5)
-    assert_equal 8, CS::linear_matrix_fibonacci(6)
+  def test_linear_matrix
+    (0..F.size - 1).each { | i | assert_equal F[i], CS::linear_matrix_fibonacci(i)}
   end
   
+  def test_while_loop
+    (0..F.size - 1).each { | i | assert_equal F[i], CS::while_loop_fibonacci(i)}
+  end
+
   # Test for gross performance problems, using a time-out thread.
-  # It's probably possible--at least theoretically--for this test
+  # It's possible--at least theoretically--for this test
   # to fail because of system issues rather than the fibonacci
   # generator.  So, if it fails, try it again and/or take its
   # failure with a grain of salt.
@@ -60,7 +58,10 @@ class CsFibonacciTest  < Test::Unit::TestCase
 
   private
 
-  # Seemingly innocent, recursive algorithm that computes the nth Fibonacci number.
+  # Fhe first few Fibonacci numbers, starting with F(0), for assertion comparisons
+  F = [0, 1, 1, 2, 3, 5, 8]
+
+    # Seemingly innocent, recursive algorithm that computes the nth Fibonacci number.
   # Requires 2**n recursive calls, requiring an obscene amount of memory and CPU time.
   # Try it for n = 1000, and then twiddle your thumbs while waiting for the "out of memory"
   # exception... 
