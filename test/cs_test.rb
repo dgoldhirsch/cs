@@ -4,16 +4,6 @@ require "timeout"
 
 class CsFibonacciTest  < Test::Unit::TestCase
 
-  def linear_addition_fibonacci
-    assert_equal 0, CS::linear_addition_fibonacci(0)
-    assert_equal 1, CS::linear_addition_fibonacci(1)
-    assert_equal 1, CS::linear_addition_fibonacci(2)
-    assert_equal 2, CS::linear_addition_fibonacci(3)
-    assert_equal 3, CS::linear_addition_fibonacci(4)
-    assert_equal 5, CS::linear_addition_fibonacci(5)
-    assert_equal 8, CS::linear_addition_fibonacci(6)
-  end
-  
   def test_linear_matrix  
     assert_equal 0, CS::linear_matrix_fibonacci(0)
     assert_equal 1, CS::linear_matrix_fibonacci(1)
@@ -24,26 +14,6 @@ class CsFibonacciTest  < Test::Unit::TestCase
     assert_equal 8, CS::linear_matrix_fibonacci(6)
   end
   
-  def test_simplest
-      assert_equal 0, CS::simplest_fibonacci(0)
-      assert_equal 1, CS::simplest_fibonacci(1)
-      assert_equal 1, CS::simplest_fibonacci(2)
-      assert_equal 2, CS::simplest_fibonacci(3)
-      assert_equal 3, CS::simplest_fibonacci(4)
-      assert_equal 5, CS::simplest_fibonacci(5)
-      assert_equal 8, CS::simplest_fibonacci(6)
-  end
-  
-  def test_list
-      assert_equal 0, CS::list_fibonacci(0)
-      assert_equal 1, CS::list_fibonacci(1)
-      assert_equal 1, CS::list_fibonacci(2)
-      assert_equal 2, CS::list_fibonacci(3)
-      assert_equal 3, CS::list_fibonacci(4)
-      assert_equal 5, CS::list_fibonacci(5)
-      assert_equal 8, CS::list_fibonacci(6)
-  end
-  
   # Test for gross performance problems, using a time-out thread.
   # It's probably possible--at least theoretically--for this test
   # to fail because of system issues rather than the fibonacci
@@ -52,7 +22,7 @@ class CsFibonacciTest  < Test::Unit::TestCase
   def test_raw_performance
     assert_nothing_raised do
       # 20 seconds would seem to be far more than is necessary for this...
-      Timeout::timeout(20) {CS::linear_addition_fibonacci(10000)}
+      Timeout::timeout(20) {CS::linear_matrix_fibonacci(10000)}
     end
   end
 
