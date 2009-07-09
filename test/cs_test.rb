@@ -4,15 +4,17 @@ require "timeout"
 
 class CsFibonacciTest  < Test::Unit::TestCase
 
-  def test_linear_matrix
-    (0..F.size - 1).each { | i | assert_equal F[i], CS::linear_matrix_fibonacci(i)}
+  def test_matrix
+    (0..F.size - 1).each { | i | assert_equal F[i], CS::matrix_fibonacci(i)}
   end
   
-  def test_while_loop
-    (0..F.size - 1).each { | i | assert_equal F[i], CS::while_loop_fibonacci(i)}
+  def test_addititive
+    (0..F.size - 1).each { | i | assert_equal F[i], CS::additive_fibonacci(i)}
   end
 
-  def test_optional_algorithm
+  def test_algorithm_parameter
+    assert_equal 8, CS::fibonacci(6, CS::MATRIX)
+    assert_equal 8, CS::fibonacci(6, CS::ADDITION)
     assert_nil CS::fibonacci(3, :foobar)
   end
   
@@ -24,7 +26,7 @@ class CsFibonacciTest  < Test::Unit::TestCase
   def test_raw_performance
     assert_nothing_raised do
       # 20 seconds would seem to be far more than is necessary for this...
-      Timeout::timeout(20) {CS::linear_matrix_fibonacci(10000)}
+      Timeout::timeout(20) {CS::matrix_fibonacci(10000)}
     end
   end
 

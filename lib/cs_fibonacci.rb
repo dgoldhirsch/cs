@@ -15,7 +15,7 @@ require 'cs.rb'
 #    puts 7.fibonacci() # prints 8
 # </code>
 class Integer
-  def fibonacci
-    return CS::fibonacci(self)
+  def fibonacci algorithm = CS::MATRIX
+    return CS::fibonacci(self, algorithm)
   end
 end

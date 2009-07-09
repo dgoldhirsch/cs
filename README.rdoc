@@ -2,50 +2,68 @@
 
 Computer Science Module for Ruby
 
-This gem provides the module CS which contains useful computer science algorithms.
-Reasonable attempts have been made to ensure that the algorithms perform well.
+This is an ambitious gem in which we hope to provide useful computer science algorithms.
+The first version is very small, offering two algorithms to compute Fibonacci numbers.
+We did this as an exercise in writing good Ruby code, as well as learning how to provide
+real, useful libraries as gems.
+
+Here are the two Fibonacci algorithms currently supported:
+
+[Matrix exponentiation]  This is the fastest way we have found to compute Fibonacci numbers.
+It makes use of the fact that if M = Matrix[[0, 1], [1, 1]], then the lower right element of
+M**k contains the (k + 1)'th Fibonacci number.  This is very fast if the Matrix.** operation
+is optimized to use successive squaring rather than individual multiplications.  Ruby's
+implementation of Matrix.** does exactly this, fortunately.
+
+[While loop]  This is a simple loop that computes F(n) by adding F(0) + F(1) + ... + F(n - 1).
+For n < 5000, this seems to perform about as well as the matrix exponentiation.  But, thereafter
+it is MUCH slower (at least, in the benchmarks we performed).
+
+= Using the library
+
+The algorithms are available in two forms.  The basic form is a module method:
+
+  require 'rubygems'
+  require 'cs'
+  y = CS::fibonacci(6) # returns F(6) which is 8 = 5 + 3, using default algorithm
+
+An optional parameter selects the algorithm to be used.  By default, the matrix
+exponentiation algorithm is used.  However, you can choose one or the other as follows:
+
+  y_more_slowly = CS::fibonacci(6, CS::FIBONACCI_WHILE_LOOP)
+
+As a convenience, the method is also available as an instance mixin for the class Integer:
+
+  require 'rubygems'
+  require 'cs_fibonacci'
+  y = 6.fibonacci # use default algorithm
+  y_slower = 6.fibonacci(CS::FIBONACCI_WHILE_LOOP)
 
 == Obtaining the gem from github
 
+gem sources -a http://gems.github.com
 gem install dgoldhirsch-cs
 
-== Using the CS module in your Ruby  code
+== Extensions to Standard Library
 
-require 'rubygems'
-require 'cs'
+While coding these algorithms, we found it useful to code an extension to the
+standard Ruby Matrix class, to obtain the lower right element of a matrix.
+It may be that this is already available in one of the existing Ruby extension
+gems--but, for now, we included it in the CS module on the chance that
+someone else might want to make use of it:
 
-CS::classmethodwhatever params...
-
-== Available Algorithms
-
-Currently the module is very small, but the intention is to fill it with as many
-algorithms as aren't already available elsewhere on the Web (see http://rosettacode.org/ for
-another place where algorithms are available).
-
-Here's the list of available algorithms, so far:
-
-CS::fibonacci(anInteger)    # return F(n),  the nth Fibonacci number, where F(0) = 0, F(1) = 1,
-                    # and F(n) = F(n - 1) + F(n - 2).  An optimized matrix multiplication
-                    # algorithm is used to provide O(log n) performance (as opposed to
-                    # a simple while loop that is O(n), or an even simpler recursive
-                    # method that is O(2**n)).
-
-CS::lower_right(aMatrix)    # convenience method returning the lower, right-hand
-                    # element of the given Matrix object
-
-== Alternative Implementations of the Algorithms
-
-Although we've tried to offer the best-performing implementation by default, there
-is always the chance that a different implementation may work better for any
-particular environment and data set.  Therefore, we provide alternate implementations
-and a simple, optional parameter that lets you select a specific implementation for each
-method.
+  require 'rubygems'
+  require 'cs'
+  y = CS::lower_right(Matrix[[1, 2], [3, 4]]) # y is 4
 
 == This is Still Half-Baked
 
-Obviously, we're still in the process of creating the first legitimate version of this
-gem.  For now, it should be thought of as an 'alpha' release (at best!)
+Obviously, this is a beginner's gem which is in an infant state.  Comments and
+suggestions are very welcome.  As a companion to the gem, we'll try to create
+a Web site that demonstrates the algorithms and which solicits additional algorithm
+contributions and suggestions.   We'll update this document when/if we are able
+to finish that.
 
 == Copyright
 
-Copyright (c) 2009 dgoldhirsch. See LICENSE for details.
+Copyright (c) 2009 David C. Goldhirsch. See LICENSE for details.

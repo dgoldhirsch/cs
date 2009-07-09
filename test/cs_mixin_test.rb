@@ -10,10 +10,10 @@ require File.join(File.dirname(__FILE__), '..', 'lib', 'cs_matrix.rb')
 class CsMixinTest  < Test::Unit::TestCase
 
   def test_fibonacci_mixin
-    x = 7.fibonacci # ensure works with Fixnum
-    # Use reflection to ensure that it works
-    # with Bignums ('cause, it'd take a loooonnnnnggg
-    # time to compute the fibonacci number of a Bignum).
+    assert_equal 13, 7.fibonacci # ensure works with Fixnum
+    assert_equal 13, 7.fibonacci(CS::ADDITION) # ensure optional algorithm works
+    # Use reflection to ensure that the method has been mixed
+    # into Bignum as well as Fixnum.
     y = 0xfffffffffe # Bignum on any 32-bit system
     assert y.method(:fibonacci)
   end
