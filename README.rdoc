@@ -15,7 +15,7 @@ M**k contains the (k + 1)'th Fibonacci number.  This is very fast if the Matrix.
 is optimized to use successive squaring rather than individual multiplications.  Ruby's
 implementation of Matrix.** does exactly this, fortunately.
 
-[While loop]  This is a simple loop that computes F(n) by adding F(0) + F(1) + ... + F(n - 1).
+[Simple addition]  This is a simple loop that computes F(n) by adding F(0) + F(1) + ... + F(n - 1).
 For n < 5000, this seems to perform about as well as the matrix exponentiation.  But, thereafter
 it is MUCH slower (at least, in the benchmarks we performed).
 
@@ -25,12 +25,12 @@ The algorithms are available in two forms.  The basic form is a module method:
 
   require 'rubygems'
   require 'cs'
-  y = CS::fibonacci(6) # returns F(6) which is 8 = 5 + 3, using default algorithm
+  y = CS::fibonacci(6) # returns F(6) which is 8 = 5 + 3, using matrix algorithm by default
 
 An optional parameter selects the algorithm to be used.  By default, the matrix
 exponentiation algorithm is used.  However, you can choose one or the other as follows:
 
-  y_more_slowly = CS::fibonacci(6, CS::FIBONACCI_WHILE_LOOP)
+  y_more_slowly = CS::fibonacci(6, CS::ADDITION)
 
 As a convenience, the method is also available as an instance mixin for the class Integer:
 
@@ -41,8 +41,8 @@ As a convenience, the method is also available as an instance mixin for the clas
 
 == Obtaining the gem from github
 
-gem sources -a http://gems.github.com
-gem install dgoldhirsch-cs
+  gem sources -a http://gems.github.com
+  gem install dgoldhirsch-cs
 
 == Extensions to Standard Library
 
