@@ -1,15 +1,15 @@
-= cs
+= CS
 
 Computer Science Module for Ruby
 
-This is an ambitious gem in which we hope to provide useful computer science algorithms.
-The first version is very small, offering two algorithms to compute Fibonacci numbers.
-We did this as an exercise in writing good Ruby code, as well as learning how to provide
-real, useful libraries as gems.
+This is a gem containing some algorithms useful for computer science and math.
+I'm writing it to teach myself how to write well-performing, well-structured Ruby code,
+as well as to get some practice maintaining a Ruby Gem (and, it must be said, to gain some
+little bit of visibility in the Ruby world).
 
-Here are the two Fibonacci algorithms currently supported:
+The first version is very small, offering two algorithms to compute Fibonacci numbers:
 
-[Matrix exponentiation]  This is the fastest way we have found to compute Fibonacci numbers.
+[Matrix exponentiation]  This is the fastest way I've found to compute Fibonacci numbers.
 It makes use of the fact that if M = Matrix[[0, 1], [1, 1]], then the lower right element of
 M**k contains the (k + 1)'th Fibonacci number.  This is very fast if the Matrix.** operation
 is optimized to use successive squaring rather than individual multiplications.  Ruby's
@@ -19,9 +19,10 @@ implementation of Matrix.** does exactly this, fortunately.
 For n < 5000, this seems to perform about as well as the matrix exponentiation.  But, thereafter
 it is MUCH slower (at least, in the benchmarks we performed).
 
-= Using the library
+== Using CS
 
-The algorithms are available in two forms.  The basic form is a module method:
+The algorithms are available as module methods, and you (currently) get all (two) of them
+by requiring 'cs.rb':
 
   require 'rubygems'
   require 'cs'
@@ -37,24 +38,12 @@ As a convenience, the method is also available as an instance mixin for the clas
   require 'rubygems'
   require 'cs_fibonacci'
   y = 6.fibonacci # use default algorithm
-  y_slower = 6.fibonacci(CS::FIBONACCI_WHILE_LOOP)
+  y_slower = 6.fibonacci(CS::ADDITION) # specify a different algorithm
 
 == Obtaining the gem from github
 
   gem sources -a http://gems.github.com
   gem install dgoldhirsch-cs
-
-== Extensions to Standard Library
-
-While coding these algorithms, we found it useful to code an extension to the
-standard Ruby Matrix class, to obtain the lower right element of a matrix.
-It may be that this is already available in one of the existing Ruby extension
-gems--but, for now, we included it in the CS module on the chance that
-someone else might want to make use of it:
-
-  require 'rubygems'
-  require 'cs'
-  y = CS::lower_right(Matrix[[1, 2], [3, 4]]) # y is 4
 
 == This is Still Half-Baked
 
@@ -63,6 +52,19 @@ suggestions are very welcome.  As a companion to the gem, we'll try to create
 a Web site that demonstrates the algorithms and which solicits additional algorithm
 contributions and suggestions.   We'll update this document when/if we are able
 to finish that.
+
+== CSW Web Application
+
+In addition to learning how to write a decent gem, I wanted to write my first Ruby Web
+application.  So, I wrote CSW which is a Web application that provides interactive testing
+of the CS library.  It, too, is on github:
+
+    www.github.com/dgoldhirsch/csw
+
+For now you can read its README there.  When/if I finish it and get it hosted somewhere
+(e.g., heroku), you'll be able to use it for yourself.  I'm hoping that CSW will make it
+easy and fun for other programmers to extend and contribute to the CS library.  CS will
+then be a real, open-source project!
 
 == Copyright
 
