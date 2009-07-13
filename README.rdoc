@@ -48,10 +48,7 @@ As a convenience, the method is also available as an instance mixin for the clas
 == This is Still Half-Baked
 
 Obviously, this is a beginner's gem which is in an infant state.  Comments and
-suggestions are very welcome.  As a companion to the gem, we'll try to create
-a Web site that demonstrates the algorithms and which solicits additional algorithm
-contributions and suggestions.   We'll update this document when/if we are able
-to finish that.
+suggestions are very welcome.
 
 == CSW Web Application
 
