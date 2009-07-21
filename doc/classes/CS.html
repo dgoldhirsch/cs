@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: CS</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">CS</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/lib/cs_rb.html">
+                lib/cs.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <table>
+<tr><td valign="top">Title:</td><td>Computer Science Library for Ruby
+
+</td></tr>
+<tr><td valign="top">Author:</td><td>David C. Goldhirsch
+
+</td></tr>
+</table>
+<p>
+Copyright (c) 2009, David C. Goldhirsch
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000006">additive_fibonacci</a>&nbsp;&nbsp;
+      <a href="#M000003">fibonacci</a>&nbsp;&nbsp;
+      <a href="#M000004">lower_right</a>&nbsp;&nbsp;
+      <a href="#M000005">matrix_fibonacci</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">MATRIX</td>
+          <td>=</td>
+          <td class="context-item-value">:matrix</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Fibonacci Algorithms
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ADDITION</td>
+          <td>=</td>
+          <td class="context-item-value">:addition</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Fibonacci_algorithms</td>
+          <td>=</td>
+          <td class="context-item-value">[MATRIX, ADDITION]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M</td>
+          <td>=</td>
+          <td class="context-item-value">Matrix[[0, 1], [1,1]]</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+To understand why this matrix is useful for Fibonacci numbers, remember
+that the definition of <a href="Matrix.html">Matrix</a>.** for any <a
+href="Matrix.html">Matrix</a>[[a, b], [c, d]] is is [[a*a + b*c, a*b +
+b*d], [c*a + d*b, c*b + d*d]]. In other words, the lower right element is
+computing F(k - 2) + F(k - 1) every time M is multiplied by itself (it is
+perhaps easier to understand this by computing M**2, 3, etc, and watching
+the result march up the sequence of Fibonacci numbers).
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="CS.src/M000006.html" target="Code" class="method-signature"
+            onclick="popupCode('CS.src/M000006.html');return false;">
+          <span class="method-name">additive_fibonacci</span><span class="method-args">(n)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This is a simple, additive loop to compute F(n) by computing F(0) + F(1) +
+&#8230; + F(n-1). Our spotty benchmark/profiling suggests that this is
+always worse in CPU time and general response time than the
+linear_matrix_fibonacci algorithm. (And, surprisingly, this seems to be
+true even for very low values of n.) We provide it for purposes of
+information, and as a point of comparison for performance.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="CS.src/M000003.html" target="Code" class="method-signature"
+            onclick="popupCode('CS.src/M000003.html');return false;">
+          <span class="method-name">fibonacci</span><span class="method-args">(n, algorithm = MATRIX)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generalized Fibonacci generator. Return the integer value of F(n) for any
+integer n, where F(0) = 0 F(1) = 1 F(k &gt; 1) = F(k - 1) + F(k - 2)
+Starting with F(0), the first few Fibonacci values are 0, 1, 1, 2, 3, 5, 8,
+&#8230;
+</p>
+<p>
+Usage: CS::fibonacci(anInteger, aSymbol = CS::MATRIX) in which anInteger is
+any integer (but anything less than 0 will be interpreted as 0), and
+aSymbol optionally specifies the algorithm to be used. See this
+module&#8216;s Fibonacc_algorithms constant for the possible algorithm
+names. By default, the fastest known algorithm will be used.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="CS.src/M000004.html" target="Code" class="method-signature"
+            onclick="popupCode('CS.src/M000004.html');return false;">
+          <span class="method-name">lower_right</span><span class="method-args">(matrix)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Matrix.html">Matrix</a> utility to return the lower, right-hand
+element of a given matrix.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="CS.src/M000005.html" target="Code" class="method-signature"
+            onclick="popupCode('CS.src/M000005.html');return false;">
+          <span class="method-name">matrix_fibonacci</span><span class="method-args">(n)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Matrix.html">Matrix</a> exponentiation algorithm to compute
+Fibonacci numbers. Let M be <a href="Matrix.html">Matrix</a> [[0, 1], [1,
+1]]. Then, the lower right element of M**k is F(k + 1). In other words, the
+lower right element of M is F(2) which is 1, and the lower right element of
+M**2 is F(3) which is 2, and the lower right element of M**3 is F(4) which
+is 3, etc.
+</p>
+<p>
+This is a good way to compute F(n) because the Ruby implementation of <a
+href="Matrix.html">Matrix</a>.** uses an O(log n) optimized algorithm (*).
+Computing M**(n-1) is actually faster (**) than using a simple while/for
+loop to compute F(0) + F(1) + &#8230; + F(n-1).
+</p>
+<p>
+We found this algorithm in <em>Introduction To Algorithms (Second
+Edition)</em>, by Cormen, Leiserson, Rivest, and Stein, MIT Press (<a
+href="http://mitpress.mit.edu">mitpress.mit.edu</a>), in exercise 3-31 on
+pages 902, 903.
+</p>
+<p>
+(*) Ruby&#8216;s <a href="Matrix.html">Matrix</a>.**(k) works by computing
+partial = ((m**2)**2)&#8230; as far as possible, and then multiplying
+partial by M**(the remaining number of times). E.g., to compute M**19,
+compute partial = ((M**2)**2) = M**16, and then compute partial*(M**3) =
+M**19. That&#8216;s only 3 matrix multiplications of M to compute M*19.
+</p>
+<p>
+(**) &quot;Faster&quot; means on the workstations we tried, the matrix
+algorithm takes less total time (see Ruby&#8216;s Benchmark::bmbm) than a
+simple, additive loop. But the space complexity may well be larger for the
+matrix algorithm, which in turn may affect the likelihood of garbage
+collection in large cases. Therefore, as with almost everything else, a
+different algorithm may be better suited to any particular environment or
+situation. This is why we provide the optional, alternative algorithms.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
